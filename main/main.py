@@ -1,6 +1,7 @@
-from dataclasses import dataclass
-
 import requests
+import sys
+
+from dataclasses import dataclass
 from flask import Flask, jsonify, abort
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
@@ -47,6 +48,7 @@ def like(id):
 
     publish('product_liked', id)
   except:
+    print("Unexpected error:", sys.exc_info()[0])
     abort(400, 'You already liked this product')
 
   return jsonify({
